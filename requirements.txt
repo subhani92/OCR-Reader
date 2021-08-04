@@ -1,0 +1,5 @@
+click
+opencv 
+pdf2image 
+pytesseract
+spellchecker

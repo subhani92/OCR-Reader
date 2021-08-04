@@ -1,0 +1,173 @@
+2003.00744v1 [cs.CL] 2 Mar 2020
+
+ 
+
+arXiv
+
+PhoBERT: Pre-trained language models for Vietnamese
+
+Dat Quoc Nguyen and Anh Tuan Nguyen
+VinAI Research, Vietnam
+
+{v-datna®,
+
+Abstract
+
+We present PhoBERT with two versions of “base’
+and “large”—the first public large-scale monol
+gual language models pre-trained for Vietnamese
+We show that PhoBERT improves the state-of
+the-art in multiple Vietnamese-specific NLP tasks
+including Partof-speech tagging. Named-entity
+recognition and Natural language inference. We
+release PhoBERT to facilitate future research and
+downstream applications for Vietnamese NLP. Our
+PhoBERT is released at: https: //github
+com/VinAIResearch/PhoBERT.
+
+      
+
+ 
+
+1 Introduction
+Pre-trained language models, especially BERT—the Bidire
+tional Encoder Representations from Transformers [Devlin
+et al., 20191, have recently become extremely popular a
+helped to produce significant improvement gains for
+NLP tasks. The success of pre-trained BERT and its variants
+has largely been limited to the English language. For other
+languages, one could retrain a language-specific model using
+the BERT architecture [Vu er al., 2019; Martin er al., 2019:
+de Vries er al., 2019] or employ existing pre-trained mult
+lingual BERT-based models [Devlin ef al., 2019; Conneau er
+al., 2019; Conneau and Lample, 2019],
+
+In terms of Vietnamese language modeling. to the best of
+our knowledge. there are two main concerns: (@) The Viet-
+namese Wikipedia corpus is the only data used to tain all
+monolingual language models [Vu ef al, 2019], and it also
+is the only Vietnamese dataset included in the pre-training
+data used by all multilingual language models except XLM-R
+[Conneau er al., 2019]. It is worth noting that Wikipedia data
+is not representative of a general language use, and the Viet-
+namese Wikipedia data is relatively small (GB in size un-
+compressed), while pre-trained language models can be sig.
+nificantly improved by using more data [Liu er al., 2019].
+
+‘All monolingual and multilingual models, except ETNLP.
+[Vu er al, 20191, are not aware of the difference between
+Viemamese syllables and word tokens (this ambiguity comes
+from the fact that the white space is also used to separate
+syllables that constitute words when written in Vietnamese).
+Without doing a pre-process step of Vietnamese word ses~
+mentation, those models directly apply Bype-Pair encoding
+(BPE) methods [Sennrich er al., 2016] to the syllable-level
+ing Vietnamese data. Also, although performing
+
+   
+
+     
+
+ 
+
+ 
+
+   
+
+ 
+
+ 
+
+ 
+
+   
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+     
+
+ 
+
+v-anhnt496}@vinai.io
+
+Word segmentation before applying BPE on the Vietnamese
+Wikipedia corpus, ETNLP in fact does not publicly release
+any pre-trained BERT-based model! As a result, we find dif-
+ficulties in applying existing pre-trained language models for
+word-level Vietnamese NLP tasks.
+
+To handle the (wo concerns above, we train the first large-
+scale monolingual BERT-based “base” and “large” models
+Using a 20GB word-level Vietnamese corpus. We evaluate
+‘our models on three downstream Vietnamese NLP tasks: the
+two most common ones of Par-of-speech (POS) tageing and
+Named-entity recognition (NER). and a language understand-
+ing task of Natural language inference (NLI). Experimental
+results show that our models obtain state-of-the-art (SOTA)
+performances for all three tasks. We release our models under
+the name PhoBERT in popular open-source libraries, hoping
+that PhoBERT can serve as a strong baseline for future Viet-
+namese NLP research and applications.
+
+   
+
+ 
+
+ 
+
+2 PhoBERT
+
+This section outlines the architecture and describes the pre-
+taining data and optimization setup we use for PhoBERT.
+Architecture: PhoBERT has two versions PhoBERTpac and
+PhOBERT urge. using the same configuration as BERT,.— and
+BERT use, respectively. PhOBERT pre-training approach is
+based On ROBERT [Li ef al., 2019] which optimizes the
+BERT pre-training method for more robust performance.
+Data: We use a pre-training dataset of 20GB of uncom-
+pressed texts after cleaning. This dataset is a combination of
+{wo corpora: (i) the first one is the Vietnamese Wikipedia cor-
+pus (~1GBB), and Gi) the second corpus (~ 19GB) is a subset
+Of 40GB Vietnamese news corpus after Gltering out similar
+news and duplications.” We employ RDRSegmenter [Nguyen
+ef al., 2018] from VnCoreNLP [Vu et al.. 2018] to perform
+Word and sentence segmentation on the pre-training dataset
+resulting in ~ 145M word-segmented sentences (~3B word
+tokens). Different from ROBERTa, we then apply £ast5PE
+[Sennrich er af. 2016] to sezment these sentences with sub-
+Word units, using a vocabulary size of 64K subword types
+Optimization: We employ the ROBERTa implementation in
+fairseq [OU eral, 2019]. Each sentence contains at most
+256 subword tokens (here, SK/I45M sentences with more
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+  
+
+7//github.com/vietnip/etnip — last access
+‘ebruary 2026.
+
+//git hub .com/binhyg/news—
+awled from a wide range of websites with 14 different
+
+     
+
